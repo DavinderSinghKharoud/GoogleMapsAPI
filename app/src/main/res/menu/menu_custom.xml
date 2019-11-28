@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/Night"
+        android:title="Night"
+        app:showAsAction="always" />
+    <item android:id="@+id/Retro"
+        android:title="Retro"
+        app:showAsAction="collapseActionView" />
+    <item android:id="@+id/Silver"
+        android:title="Silver"
+        app:showAsAction="collapseActionView" />
+    <item android:id="@+id/standard"
+        android:title="Standard"
+        app:showAsAction="collapseActionView" />
+</menu>
