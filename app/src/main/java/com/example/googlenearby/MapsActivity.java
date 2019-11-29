@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,12 +75,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static final int REQUEST_LOCATION_CODE = 99;
     int PROXIMITY_RADIUS = 10000;
     double latitude, longitude;
-    TextView displayNames;
-    ListView listView;
+    TextView emptyView;
     ArrayList<String> Restaurant_Names = new ArrayList<String>();
     ArrayList<String> Restaurant_Rating = new ArrayList<String>();
     SensorManager sm;
     Sensor light;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        emptyView=findViewById(R.id.empty_view);
+
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,19 +124,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-
-    }
-
-
     public void ChangeNightColor() {
 
         try {
@@ -138,6 +140,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("MainActivity", "Can't find style. Error: ", e);
         }
     }
+
     public void ChangeRetroColor() {
 
         try {
@@ -154,6 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("MainActivity", "Can't find style. Error: ", e);
         }
     }
+
     public void ChangeSilverColor() {
 
         try {
@@ -170,6 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("MainActivity", "Can't find style. Error: ", e);
         }
     }
+
     public void ChangeStandardColor() {
 
         try {
@@ -288,10 +293,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * When user click on the hospital, reastaurant and school button.
+     *
+     * @param v
+     */
     public void onClick(View v) {
         Object dataTransfer[] = new Object[2];
 
         NearByRestaurants getNearbyPlacesData = new NearByRestaurants();
+        emptyView.setVisibility(View.INVISIBLE);
 
         switch (v.getId()) {
 
@@ -305,6 +316,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getNearbyPlacesData.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Restaurants", Toast.LENGTH_SHORT).show();
 
+
                 break;
 
             case R.id.Schools:
@@ -317,6 +329,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getNearbyPlacesData.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Schools", Toast.LENGTH_SHORT).show();
 
+
+
                 break;
             case R.id.Hospital:
                 mMap.clear();
@@ -327,6 +341,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 getNearbyPlacesData.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_SHORT).show();
+
 
                 break;
         }
