@@ -6,9 +6,10 @@ Will be update in few weeks include New Design, SearchView, RatingBar, GeoCoding
 1. Maps SDK for Android
 2. Places API
 3. Custom Maps Styling( Night, Retro, Silver, and standard mode)
-4. HttpURLConnection
-5. AsyncTask 
-6. Reading JSON data
+4. ListView
+5. HttpURLConnection
+6. AsyncTask 
+7. Reading JSON data
  and more.
  
  * ## Application Functions
